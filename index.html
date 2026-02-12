@@ -32,11 +32,30 @@
             font-size: 1.5rem;
             font-weight: 600;
         }
+        .clock {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-top: 20px;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.05em;
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>Ralph Dashboard</h1>
+        <div class="clock" id="clock"></div>
     </div>
+    <script>
+        function updateClock() {
+            var now = new Date();
+            var h = String(now.getHours()).padStart(2, '0');
+            var m = String(now.getMinutes()).padStart(2, '0');
+            var s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = h + ':' + m + ':' + s;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
 </body>
 </html>
