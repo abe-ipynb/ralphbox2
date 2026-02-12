@@ -39,12 +39,50 @@
             font-variant-numeric: tabular-nums;
             letter-spacing: 0.05em;
         }
+        .counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .counter button {
+            background-color: #0f3460;
+            color: #ffffff;
+            border: none;
+            border-radius: 999px;
+            width: 44px;
+            height: 44px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        .counter button:hover {
+            background-color: #1a4a8a;
+        }
+        .counter button:active {
+            background-color: #0a2540;
+        }
+        .counter-value {
+            font-size: 2rem;
+            font-weight: 600;
+            min-width: 48px;
+            font-variant-numeric: tabular-nums;
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>Ralph Dashboard</h1>
         <div class="clock" id="clock"></div>
+        <div class="counter">
+            <button onclick="changeCount(-1)" aria-label="Decrease">−</button>
+            <span class="counter-value" id="counter-value">0</span>
+            <button onclick="changeCount(1)" aria-label="Increase">+</button>
+        </div>
     </div>
     <script>
         function updateClock() {
@@ -56,6 +94,12 @@
         }
         updateClock();
         setInterval(updateClock, 1000);
+
+        var count = 0;
+        function changeCount(delta) {
+            count += delta;
+            document.getElementById('counter-value').textContent = count;
+        }
     </script>
 </body>
 </html>
