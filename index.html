@@ -20,6 +20,7 @@
             min-height: 100vh;
         }
         .card {
+            position: relative;
             background-color: #16213e;
             border-radius: 16px;
             padding: 40px 32px;
@@ -27,6 +28,49 @@
             max-width: 420px;
             text-align: center;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 999px;
+            width: 36px;
+            height: 36px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+        .theme-toggle:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+        body.light {
+            background-color: #e8e8e8;
+            color: #1a1a2e;
+        }
+        body.light .card {
+            background-color: #ffffff;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        body.light .counter button {
+            background-color: #d0d8e8;
+            color: #1a1a2e;
+        }
+        body.light .counter button:hover {
+            background-color: #b8c4d8;
+        }
+        body.light .counter button:active {
+            background-color: #a0aec0;
+        }
+        body.light .theme-toggle {
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+        body.light .theme-toggle:hover {
+            border-color: rgba(0, 0, 0, 0.6);
         }
         .card h1 {
             font-size: 1.5rem;
@@ -76,6 +120,7 @@
 </head>
 <body>
     <div class="card">
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" id="theme-toggle">🌙</button>
         <h1>Ralph Dashboard</h1>
         <div class="clock" id="clock"></div>
         <div class="counter">
@@ -94,6 +139,19 @@
         }
         updateClock();
         setInterval(updateClock, 1000);
+
+        function toggleTheme() {
+            var isLight = document.body.classList.toggle('light');
+            document.getElementById('theme-toggle').textContent = isLight ? '☀️' : '🌙';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        }
+        (function() {
+            var saved = localStorage.getItem('theme');
+            if (saved === 'light') {
+                document.body.classList.add('light');
+                document.getElementById('theme-toggle').textContent = '☀️';
+            }
+        })();
 
         var count = 0;
         function changeCount(delta) {
